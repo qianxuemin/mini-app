@@ -1,0 +1,61 @@
+<view class="swiper-box">
+
+<swiper bindchange="swiperChange" indicator-dots="{{indicatorDots}}" vertical="true"
+  autoplay="{{false}}" current="{{current}}" duration="{{duration}}">
+  <block wx:for="{{paperLayouts.layouts}}" wx:for-index="idx" wx:key="itemName" wx:for-item="itemName">
+    <swiper-item>
+      <view class="swiper-inner-box">
+        <image src="{{itemName.newPicUrl}}" class="slide-image"/>
+        <!-- 热区  {{currentImg}}-->
+        <block wx:for="{{itemName.mapping}}" wx:for-index="idx" wx:key="mappings" wx:for-item="mappings">
+        <view style="position: absolute;z-index:{{100-idx}};top:{{mappings.hottop}};left:{{mappings.hotleft}};width:{{mappings.hotwidth}};height:{{mappings.hotheight}};">
+        <navigator hover-class="hot-hover" style="width:100%;height:100%;" url="/pages/detail/detail?fileId={{mappings.articleID}}">
+          <view style="width:100%;height:100%;"></view>
+          <!-- 热区z-index{{idx}} -->
+          </navigator>
+        </view>
+          
+        </block>
+      </view>
+    </swiper-item>
+  </block>
+</swiper>
+<view class="paper-btn-pic" bindtap="showVer">
+  <image class="paper-btn-pic-img" src="/pages/paperimgs/left.png"></image>
+</view>
+<view class="paper-btn-ver" bindtap="showPic" wx:if="{{showVer}}">
+  <image class="paper-btn-ver-img" src="/pages/paperimgs/right.png"></image>
+</view>
+
+<!-- <button class="paper-btn-pic" bindtap="showVer">目录</button> -->
+<!-- <button class="paper-btn-ver" wx:if="{{showVer}}" bindtap="showPic">图片 </button> -->
+
+<picker class="picker-paper" mode="selector" range-key="name" bindchange="bindPaperChange" range="{{papers.papers}}">
+    <view wx:if="{{notOnlyOnePaper}}" class="change-paper-picker top-radius">
+      报纸
+    </view>
+</picker>
+
+<picker class="picker-data" fields="day" mode="date" value="{{nowPaperDate}}" start="{{startDate}}" end="{{endDate}}" bindchange="bindDataChange">
+    <view class="change-paper-picker bottom-radius">
+      日期
+    </view>
+</picker>
+
+
+
+<view class="paper-ver" wx:if="{{showVer}}">
+  <view class="paper-ver-box">
+	  <block wx:for="{{paperLayouts.layouts}}" wx:for-index="idx" wx:key="itemName" wx:for-item="itemName">
+	  	<view class="paper-ver-title theme-border-left-color">{{itemName.name}}</view>
+        <view class="paper-ver-content-blk">
+          <block wx:for="{{itemName.list}}" wx:for-index="idx" wx:key="titles" wx:for-item="titles">
+          <navigator url="/pages/detail/detail?fileId={{titles.fileId}}">
+            <view class="paper-ver-content">{{titles.title}}</view>
+          </navigator>
+          </block>
+        </view>
+	  </block>
+  </view>
+</view>
+</view>

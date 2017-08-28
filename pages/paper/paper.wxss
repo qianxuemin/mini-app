@@ -1,0 +1,111 @@
+/* pages/paper/paper.wxss */
+page{
+  height: 100%
+}
+.swiper-box{
+  height: 100%;
+  position: relative;
+}
+swiper{
+  height: 100%
+}
+.swiper-inner-box{
+  width: calc(100% - 40rpx);
+  height: 100%;
+  position: relative;
+}
+.swiper-box .paper-btn-pic{
+  position: fixed;
+  top:40%;
+  right: -40rpx;
+  z-index: 100;
+  background: rgba(0,0,0,0.7); 
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 80rpx
+}
+.paper-btn-pic-img{
+  width: 40rpx;
+  height: 40rpx;
+  margin-top: 20rpx; 
+  margin-left: 6rpx;
+}
+swiper-item{
+  height: 100%
+}
+.slide-image{
+  width: 100%;
+  height: 100%
+}
+.paper-ver{
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 200;
+  width: 100%;
+  min-height: 100%;
+  background: #fff;
+}
+.paper-ver-box{
+  position: relative;
+  width: 100%;
+}
+.paper-btn-ver{
+  position: fixed;
+  top:40%;
+  left: -40rpx;
+  z-index: 210;
+  background: rgba(0,0,0,0.7); 
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 80rpx
+}
+.paper-btn-ver-img{
+  width: 40rpx;
+  height: 40rpx;
+  margin-left: 34rpx;
+  margin-top: 20rpx; 
+}
+.paper-ver-title{
+  background: #eee;
+  padding: 20rpx 0;
+  margin-left: 10rpx;
+}
+.paper-ver-content{
+  border-bottom: 2rpx solid #eee;
+  padding: 20rpx 0 20rpx 40rpx;
+}
+
+.picker-paper{
+  position: fixed;
+  bottom:140rpx;
+  right: 4rpx;
+  z-index: 220;
+}
+.picker-data{
+  position: fixed;
+  bottom:30rpx;
+  right: 4rpx;
+  z-index: 220;
+}
+.change-paper-picker{
+  width: 40rpx;
+  color: #fff;
+  background: rgba(0,0,0,0.7); 
+  padding: 10rpx 0;
+  line-height: 40rpx;
+  font-size: 14px;
+  text-align: center;
+  word-wrap: break-word;
+}
+.top-radius{
+  border-top-left-radius: 20rpx;
+  border-top-right-radius: 20rpx;
+}
+.bottom-radius{
+  border-bottom-left-radius: 20rpx;
+  border-bottom-right-radius: 20rpx;
+}
+.hot-hover{
+  background: rgba(0, 0, 0, 0.1);
+}

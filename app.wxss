@@ -1,0 +1,23 @@
+/**app.wxss**/
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 200rpx 0;
+  box-sizing: border-box;
+} 
+/*主题颜色 字体，背景色，边框颜色*/
+.theme-color{
+  color: #FC9105;
+}
+.theme-background{
+  background: #FC9105;
+}
+.theme-borderColor{
+  border-color: #FC9105;
+}
+.theme-border-left-color{
+  border-left: 8rpx solid #FC9105;
+}

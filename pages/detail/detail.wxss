@@ -1,0 +1,44 @@
+/* pages/detail/detail.wxss */
+page{
+  padding: 20rpx;
+  box-sizing: border-box;
+}
+.detail-title{
+  font-size: 48rpx;
+  color: #333;
+  font-weight: 700;
+}
+.detail-introTitle{
+  margin-top: 20rpx;
+  font-size: 30rpx;
+  color: #333;
+}
+.detail-source-box{
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+  display: flex;
+  flex-direction: row;
+}
+.detail-source{
+  flex: 1;
+  font-size: 30rpx;
+  color: #999;
+}
+.txl{
+ text-align: left;
+}
+.txr{
+ text-align: right;
+}
+rich-text{
+  font-size: 36rpx;
+  color:#333;
+  text-align: justify;
+  line-height: 1.5
+}
+.detail-img{
+  width: 100%;
+}
+.detail-img-box{
+  margin-bottom:20rpx; 
+}

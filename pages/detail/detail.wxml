@@ -1,0 +1,16 @@
+<!--pages/detail/detail.wxml-->
+<!-- <text>当前的fileId为{{fileId}}</text> -->
+<view class="detail-title">{{article.title}}</view>
+<view wx:if="{{hasIntroTitle}}"  class="detail-introTitle">——{{article.introTitle}}</view>
+<view class="detail-source-box">
+  <view wx:if="{{hasSource}}"  class="detail-source txl">{{article.source}}</view>
+  <view wx:if="{{hasPublishTime}}"  class="detail-source txr">{{newPublishtime}}</view>
+</view>
+<view wx:if="{{hasImg}}" class="detail-img-box">
+  <block wx:for="{{article.images[0].imagearray}}" wx:for-index="idx" wx:key="image" wx:for-item="image">
+       <image class="detail-img" src="{{image.imageUrl}}"></image>
+  </block>
+</view>
+
+
+<rich-text nodes="{{nodes}}"></rich-text>
