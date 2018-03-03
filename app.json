@@ -1,23 +1,35 @@
 {
-  "pages":[
-    "pages/index/index",
-    "pages/logs/logs",
+  "pages": [
+    "pages/news/news",
+    "pages/detailSpecial/detailSpecial",
+    "pages/detailVideo/detailVideo",
+    "pages/detail/detail",
+    "pages/detailArticle/detailArticle",
     "pages/paper/paper",
-    "pages/detail/detail"
+    "pages/detailPicture/detailPicture"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "数字报",
-    "navigationBarTextStyle":"black"
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#FC9105",
+    "navigationBarTitleText": "悦享",
+    "navigationBarTextStyle": "#fff"
   },
   "tabBar": {
-    "list": [{
-      "pagePath": "pages/index/index",
-      "text": "首页"
-    }, {
-      "pagePath": "pages/paper/paper",
-      "text": "读报"
-    }]
+    "list": [
+      {
+        "pagePath": "pages/news/news",
+        "text": "新闻",
+        "iconPath": "./image/5.png",
+        "selectedIconPath": "./image/10.png"
+      },
+      {
+        "pagePath": "pages/paper/paper",
+        "text": "读报",
+        "iconPath": "./image/6.png",
+        "selectedIconPath": "./image/11.png"
+      }
+    ],
+    "selectedColor": "#FC9105",
+    "backgroundColor": "#fff"
   }
 }

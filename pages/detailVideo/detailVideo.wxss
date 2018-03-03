@@ -1,0 +1,172 @@
+video {
+  width :100%;
+  height:100%;
+}
+.section{
+  height: 400rpx;
+}
+.detaVideoTitText{
+  padding:30rpx;
+  border-bottom:1px solid #f6f6f6;
+}
+.detaVideoTitText1{
+  color: #333333;
+  font-size: 30rpx;
+  margin-bottom: 30rpx;
+}
+.detaVideoTitText2{
+  color: #999999;
+  font-size: 30rpx;
+}
+.video_relat-titl{
+  color: #000;
+  margin:30rpx 30rpx 0 30rpx;
+  padding-left:30rpx;
+  border-left:2px solid #fc9105;
+  font-size: 30rpx;
+}
+.detaiVideo{
+  margin:30rpx 30rpx 0 30rpx;
+  padding-bottom:30rpx;
+  border-bottom:1px solid #f6f6f6;
+}
+.detailVideorow{
+  display: flex;
+  flex-wrap: nowrap ;
+  flex-direction :row;
+  position: relative;
+}
+.detaiVideoCol2 image{
+  height: 155rpx;
+  width: 230rpx;
+}
+
+.detaiVideoCol2{
+  width :35%;
+  position:relative;
+}
+.relatVideoImagDuration{
+  width: 65rpx;
+  height: 25rpx;
+  line-height: 25rpx;
+  font-size: 24rpx;
+  color: #FFFFFF;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 2px;
+  position:absolute;
+  bottom: 15rpx;
+  right: 15rpx;
+  padding: 2rpx;
+}
+.detaiVideoCol1{
+  position :relative;
+  padding :0 30rpx;
+  color:#333;
+  font-size :30rpx;
+  width:65%;
+  box-sizing:border-box;
+}
+.detaiVideo_text{
+  color:#999;
+  font-size :24rpx;
+  position:absolute;
+  bottom:10rpx;
+  display:flex;
+  flex-wrap:nowrap;
+}
+.detaiVideo_text2{
+  margin-left :10rpx;
+}
+
+
+.comm_hot{
+  display:flex;
+  flex-wrap:nowrap;
+  padding-bottom: 30rpx;
+  margin:30rpx 30rpx 0 30rpx;
+  border-bottom:1px solid #f6f6f6;
+}
+.comm_hot_phto{
+  width:80rpx;
+  height:80rpx;
+  border-radius:50%;
+  border:1px solid #f6f6f6;
+}
+.comm_hot_phto image{
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.comm_hot_con{
+  padding: 0 30rpx;
+}
+.comm_hot_con image{
+  width: 0;
+  height: 0;
+}
+.comm_hot_tit{
+  display: flex;
+  flex-wrap: nowrap;
+}
+.comm_hot_user{
+  color: #999999;
+  font-size: 24rpx;
+}
+.comm_hot_content{
+  color: #333333;
+  font-size: 30rpx;
+  margin: 30rpx 0;
+}
+.comm_hot_time{
+  color: #999999;
+  font-size: 24rpx;
+  margin-top: 30rpx;
+}
+.comm_hot_image image{
+  width: 100%;
+  max-height: 500rpx;
+  min-height: 120rpx;
+  max-width: 550rpx;
+  min-width: 150rpx;
+}
+.newCommMore{
+  color: #999999;
+  font-size:24rpx;
+  text-align: center;
+  padding: 30rpx;
+}
+.videoImg{
+  width: 750rpx;
+  height: 400rpx;
+}
+/*视频栏目下的播放按钮*/
+.position-video image{
+  position: absolute;
+  height: 98rpx;
+  width: 98rpx;
+  top: 143rpx;
+  left: 336rpx;
+}
+.con-videos image{
+  width: 100%;
+  height: 100%;
+}
+/*视频栏目的视频时长显示*/
+.position-videoTime{
+  position: relative;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 2px;
+  color: #FFFFFF;
+  text-align: center;
+  top: -60rpx;
+  left: 640rpx;
+  width: 90rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  font-size: 30rpx;
+}
+.video-play{
+  width: 750rpx;
+  height: 400rpx;
+}

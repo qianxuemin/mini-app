@@ -1,0 +1,21 @@
+<!--pages/detailPicture/detailPicture.wxml-->
+<swiper interval="5000" duration="500" current="{{itemCurrent}}" class="mulPic" bindchange="changeImg">
+  <block wx:for="{{imageList}}" wx:key="unique" wx:for-index="imgIndex" wx:for-item="img">
+    <swiper-item id="{{imgIndex}}" >
+      <view class="mulImg" bindtap="showTit">
+        <image src="{{img.imageUrl}}" mode="widthFix"></image>
+      </view>
+      <!-- start轮播图文字说明title -->
+      <view class="swiperTitle{{showTitDisplay ? ' swiperTitleShow' : ' swiperTitleHide'}}" catchtap="catch_showTit">
+        <view class="swiperCount">
+          <view class="swiperIndex theme-color">{{imgIndex+1}}</view>
+          /{{imageList.length}}
+          <view class="atitle text-overflow1">{{artTle}}</view>
+        </view>
+        <view class="text-overflow5 asummer">{{img.summary}}</view>
+        
+      </view>
+      <!-- end轮播图文字说明title -->
+    </swiper-item>
+  </block>
+</swiper>

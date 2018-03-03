@@ -1,13 +1,9 @@
 /**app.wxss**/
-.container {
+page{
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding: 200rpx 0;
-  box-sizing: border-box;
-} 
+  font-family: '微软雅黑';
+  font-size: 30rpx;
+}
 /*主题颜色 字体，背景色，边框颜色*/
 .theme-color{
   color: #FC9105;
@@ -15,9 +11,61 @@
 .theme-background{
   background: #FC9105;
 }
-.theme-borderColor{
+.theme-border-color{
   border-color: #FC9105;
 }
 .theme-border-left-color{
   border-left: 8rpx solid #FC9105;
+}
+.theme-border-left-color-4{
+  border-left: 4rpx solid #FC9105;
+}
+.theme-border-all-radius-color{
+  border: 2rpx solid #FC9105;
+  border-radius: 15%;
+}
+/* 缩进10rpx */
+.retract-10{
+  padding-left: 10rpx;
+}
+/* 缩进60rpx */
+.retract-60{
+  padding-left: 60rpx;
+}
+/*显示一行文字*/
+.text-overflow1{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+/*显示两行文字*/
+.text-overflow2{
+  overflow: hidden; 
+  text-overflow: ellipsis;
+  display: -webkit-box; 
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2; 
+}
+/*显示5行文字*/
+.text-overflow5{
+  overflow: hidden; 
+  text-overflow: ellipsis;
+  display: -webkit-box; 
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5; 
+}
+/* 占位图-灰色 */
+.placeholderPic-gray{
+  background: rgba(198, 198, 198, 1);
+  height: 100%;
+  width: 100%;
+}
+/* 小图稿件 */
+.col-img-1{
+  height: 155rpx;
+}
+/* 评论头像 */
+.userPhoto{
+  border-radius: 50%;
+  border: 1px solid #f6f6f6;
 }

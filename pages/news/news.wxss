@@ -1,0 +1,533 @@
+/* pages/news/news.wxss */
+/*导航栏*/
+.labels{
+  z-index: 200;
+  height: 86rpx;
+  display: flex;
+  align-items: center;
+  background:#fff;
+  font-size: 30rpx;
+}
+/* 隐藏滚动条 */
+/* ::-webkit-scrollbar{
+  width: 0;
+  height: 0;
+  color: transparent;
+} */
+/*导航栏被选中的tab*/
+.label.active{
+  border-width: 0 0 4rpx 0;  
+  border-style: solid;
+  font-size: 36rpx;
+  /* align-self: flex-end; */
+}
+/*导航栏中其他的tab*/
+.label{
+  margin: 0 16rpx 15rpx 15rpx;
+  padding: 10rpx 10rpx;
+}
+/*导航栏scrollView*/
+.labelScroll{
+  white-space: nowrap;
+  width: 100%
+}
+.zw{
+  width: 20rpx;
+}
+/*按导航栏生成对应的页面，以轮播图形式显示*/
+.tab{
+  width: 100%;
+  height: calc(100% - 86rpx); 
+  overflow: hidden;
+}
+.tab1{
+  width: 100%;
+  height: calc(100% - 186rpx); 
+  overflow: hidden;
+}
+/*轮播图的图片*/
+swiper-item .img{
+  width: 100%;
+  height: 100%;
+}
+/*可滚动区域*/
+.bodya{
+  height: 100%; 
+}
+/* .main-news{
+  height: 400rpx;
+  width: 750rpx;
+} */
+.swiper-container{
+  height: 100%;
+  width: 750rpx;
+}
+.swiper{
+  height: 400rpx;
+  width: 750rpx;
+}
+.swiperTitle{
+  height: 90rpx;
+  width: 750rpx;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 99;
+  position: absolute;
+  top: 310rpx;
+  font-size: 30rpx;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+}
+.atitle{
+  padding: 0 20rpx;
+  width: 650rpx;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+/* .picSwiper{
+  height: 100%;
+  width: 100%;
+} */
+.swiperIndex{
+  font-size: 30rpx;
+}
+.swiperCount{
+  position: absolute;
+  left: 700rpx;
+  font-size: 22rpx;
+  display: flex;
+  white-space: nowrap;
+  align-items: flex-end;
+  padding: 0;
+}
+.row{
+  font-size: 30rpx;
+  color: #333333;
+  border-width: 0 0 2rpx 0;
+  border-color: #e3e3e3;
+  border-style: solid;
+  margin: 0 30rpx;
+  padding: 28rpx 0;
+}
+/*文章列表中的大图稿件*/
+.bigPicBox{
+  display: flex;
+  flex-wrap: wrap;
+}
+.mainContBox{
+  display: flex;
+  position: relative;
+}
+.mulPicBox{
+  display: flex;
+  flex-direction: column;
+}
+/*文章列表的title*/
+.articleTitle{
+  color: #333333;
+  height: auto;
+}
+/*文章列表的title 显示一行文字*/
+.articleTitle1{
+  color: #333333;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box; 
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1; 
+}
+/*文章列表的title 显示两行文字*/
+.articleTitle2{
+  line-height: 42rpx;
+  font-size: 30rpx;
+  overflow: hidden; 
+  text-overflow: ellipsis;
+  display: -webkit-box; 
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2; 
+}
+.home-text{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.articleTit{
+  width: 100%;
+}
+.articleTit-no{
+  margin-bottom: 40rpx;
+  height: 80rpx;
+}
+/* .home-text .articleTit, .home-text .articleTitle{
+  margin-bottom: 40rpx;
+}*/
+.col-text-big{
+  margin-bottom: 30rpx;
+  width: 100%;
+} 
+.home-des{
+  align-self: flex-end;
+  width: 100%;
+}
+.articleAbstract{
+  font-size: 24rpx;
+  color: #333333;
+  margin: 15rpx
+}
+.atrticle-source, .atrticle-publishtime{
+  font-size: 24rpx;
+  color: #999999;
+  margin-right: 20rpx;
+  display: inline-block;
+}
+.col-text-1{
+  width: 460rpx;
+  height: 155rpx;
+  margin-left: 30rpx;
+}
+.col-img-1 .cont-img{
+  height: 155rpx;
+  width: 230rpx;
+}
+.col-img-1 image{
+  margin: 0 0 30rpx 0;
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+  width: 100%;
+}
+.col-img-2 .cont-img{
+  display: flex;
+  flex-wrap: nowrap;
+  position: relative;
+  height: 165rpx;
+  width: 226rpx;
+}
+.col-img-2 image{
+  height: 165rpx;
+  width: 226rpx;
+}
+.col-img-2 .con-pics{
+  margin-right: 6rpx;
+}
+.marked{
+  display: flex;
+  margin-top: 22rpx;
+  width: 100%;
+}
+.col-text-2 .home-text .articleTit{
+  margin-bottom: 30rpx;
+}
+.positionTime{
+  position: relative;
+  top: 130rpx;
+  left: -65rpx;
+  font-size: 24rpx;
+  width: 60rpx;
+  height: 30rpx;
+  line-height: 30rpx;
+  color: #FFFFFF;
+  text-align: center;
+  display: flex;
+}
+.positionTime image{
+  width: 30rpx;
+  height: 25rpx;
+  margin-right: 8rpx;
+}
+.cont-img-big .positionTime{
+  position: absolute;
+  font-size: 30rpx;
+  top: 210rpx;
+  left: 618rpx;
+}
+.atrticle-marked{
+  float: right;
+  display: inline-block;
+}
+.atrticle-marked-top{
+  display: flex;
+  justify-content: flex-end;
+  float: right;
+}
+.bigPicBox .atrticle-marked{
+} 
+.atrticle-marked-noImg{
+  display: flex;
+  justify-content: flex-end;
+  float: right;
+  display: inline-block;
+}
+.atrticle-marked view, .atrticle-marked-top view ,.atrticle-marked-noImg view{
+  font-size: 20rpx;
+  width: auto;
+  height: 25rpx;
+  line-height: 25rpx;
+  padding:0 2rpx;
+  margin-right: 2rpx;
+  margin-top: 10rpx;
+
+}
+.videoBox .cont-img{
+  position: relative;
+}
+.positionVideo image{
+  position: absolute;
+  height: 60rpx;
+  width: 60rpx;
+  top: 52rpx;
+  left: 95rpx;
+}
+/* 视频稿件的视频时长 */
+.positionVideoTime{
+  position: absolute;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 2px;
+  top: 120rpx;
+  left: 160rpx;
+  width: 62rpx;
+  height: 25rpx;
+  line-height: 25rpx;
+  font-size: 24rpx;
+  color: #FFFFFF;
+  text-align: center;
+  padding: 2rpx;
+}
+.cont-img-big{
+  position: relative;
+  width: 690rpx;
+  height: 260rpx;
+  overflow: hidden;
+  text-align: center;
+}
+.cont-img-big image{
+  width: 100%;
+  height: 100%; 
+}
+.positionVideo-big image{
+  height: 80rpx;
+  width: 80rpx;
+  top: 90rpx;
+  left: 305rpx;
+}
+.positionVideoTime-big{
+  top: 215rpx;
+  left: 608rpx;
+  width: 77rpx;
+  height: 36rpx;
+  line-height: 36rpx;
+  font-size: 24rpx;
+}
+
+
+/*视频栏目*/
+.videoConBox{
+  position: relative;
+  /*border-width: 0 0 20rpx 0;
+  border-color: #e3e3e3;
+  border-style: solid;*/
+  box-shadow: 10rpx 2rpx 10rpx #cccccc;
+  margin: 0 0 20rpx 0;
+}
+.col-text-video{
+  position: absolute;
+  z-index: 99;
+  background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.5)0%, rgba(0, 0, 0, 0)50%);/* Safari、Chrome */
+  background: -o-linear-gradient(bottom, rgba(0, 0, 0, 0.5)0%, rgba(0, 0, 0,0)50%);/* Opera */
+  background: -moz-linear-gradient(bottom, rgba(0, 0, 0, 0.5)0%, rgba(0, 0, 0,0)50%);/* Firefox */
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5)0%, rgba(0, 0, 0,0)50%); /* 标准的语法（必须放在最后） */
+}
+/*视频栏目下视频稿件的标题*/
+.video-text view{
+  padding: 30rpx 30rpx 20rpx 30rpx;
+  color: #FFFFFF;
+  font-size: 36rpx;
+  height: 420rpx;
+  width: 750rpx;
+}
+.con-videos{
+  height: 423rpx;
+  width: 750rpx;
+}
+.con-videos image{
+  height: 100%;
+  width: 100%;
+}
+.cont-video{
+  position: relative;
+}
+/*视频栏目下的播放按钮*/
+.position-video image{
+  position: absolute;
+  height: 98rpx;
+  width: 98rpx;
+  top: 171rpx;
+  left: 336rpx;
+}
+/*视频栏目的视频时长显示*/
+.position-videoTime{
+  position: absolute;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 2px;
+  color: #FFFFFF;
+  text-align: center;
+  top: 360rpx;
+  left: 650rpx;
+  width: 77rpx;
+  height: 36rpx;
+  line-height: 36rpx;
+  font-size: 24rpx;
+}
+.markedVideo{
+  display: flex;
+  height: 42rpx;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx;
+}
+.videoPublishtime, .videoSource{
+  font-size: 26rpx;
+}
+.markedVideo image{
+  height: 38rpx;
+  width: 38rpx;
+}
+.video-img{
+  margin-right: 5rpx;
+}
+.discussView{
+  display: flex;
+  flex-wrap: nowrap;
+  color: #999999;
+  font-size: 24rpx;
+  justify-content: center;
+}
+/* 视频栏目下的置顶视频播放器 */
+.videoPlayBox{
+  position: absolute;
+  z-index: 100;
+}
+.videoPlayer{
+  width: 750rpx;
+  height: 423rpx;
+}
+.videoPlayer video{
+  width: 100%;
+  height: 100%;
+}
+.viewPlayer-marked{
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30rpx;
+  background: #FFFFFF;
+}
+.videoTitle{
+  color: #999999;
+  max-width: 500rpx;
+}
+.video-img{
+  height: 38rpx;
+  width: 38rpx;
+}
+.img-discuss, .img-close{
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  margin-left: 20rpx;
+}
+/* 文章列表中的含视频或音频的标记 */
+.artSign{
+  width: 45rpx;
+  height: 45rpx;
+  position: absolute;
+  top: 130rpx;
+  left: 180rpx;
+}
+.artSign-big{
+  width: 65rpx;
+  height: 65rpx;
+  position: absolute;
+  top: 305rpx;
+  left: 625rpx;
+}
+.artSign-noneImg{
+  width: 60rpx;
+  height: 60rpx;
+  position: absolute;
+  top: 145rpx;
+  left: 630rpx;
+}
+.artSignImg{
+  width: 100%;
+  height: 100%;
+}
+/* 刷新按钮 */
+.refresh{
+  position: absolute;
+  top: 865rpx;
+  left: 625rpx;
+  width: 80rpx;
+  height: 80rpx;
+  z-index: 100;
+  padding: 20rpx;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 2rpx 10rpx 30rpx #999999;
+  box-sizing: border-box;
+}
+.refreshImg{
+  width: 100%;
+  height: 100%;
+}
+/* 播放的音频 */
+.audioPlayCon{
+  position: fixed;
+  background: #EEEEEE;
+  height: 100rpx;
+  width: 100%;
+  line-height: 100rpx;
+}
+.audioPlayCon-item{
+  width: 100%;
+  display: flex;
+}
+.audioTitle{
+  padding: 0 30rpx;
+  width: 65%;
+}
+.audioDuration{
+  width: 11%;
+  padding-right: 20rpx;
+}
+.closeBt{
+  float: right;
+  top: -20rpx;
+  left: 10rpx;
+}
+.pauseBt{
+  top: 12rpx;
+  left: -5rpx;
+}
+.playBt{
+  top: 4rpx;
+  left: -2rpx;
+}
+.audioBt{
+  position: relative;
+  width: 45rpx;
+  height: 45rpx;
+}
+.playBt image, .closeBt image{
+  height: 80%;
+  width: 80%; 
+}
+.pauseBt image{
+  height: 100%;
+  width: 100%; 
+}

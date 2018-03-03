@@ -1,0 +1,222 @@
+<!--pages/detailArticle/detailArticle.wxml-->
+<view class="allPage" style="overflow:{{pageOverflow}}">
+  <view class="playPart" style="display:{{playPartDisplay}}" bindtap="disPlay">
+  </view>
+  <view class="videoPlayCon" style="display:{{playPartDisplay}}" >
+    <video id="articleVideo" autoplay src="{{vidobj.videoUrl}}" data-ref="{{vidobj.ref}}"></video>
+  </view>
+  <!-- start正文阅读-->
+  <scroll-view class="{{isAudio ? 'bodyb' : 'bodya'}}" scroll-y="true">
+  <view class="mainCon row">
+    <view class="articleTitText">
+        <block wx:if="{{articleObj.titleStyle}}">
+          <rich-text class="articleTitle" nodes="{{articleObj.title}}"></rich-text>
+        </block>
+        <block wx:elif="{{!articleObj.titleStyle}}">
+          <view class="articleTitle">{{articleObj.title}}</view> 
+        </block>
+        <view class="articleMaked">
+            <view class="articleSource">{{articleObj.source}}</view>
+            <view class="articlePublishtime">{{articleObj.publishtime}}</view>
+        </view>
+    </view>
+    <view class="articleCon">
+      <block wx:for="{{nodesList}}" wx:key="unique" wx:for-index="nodesIndex" wx:for-item="nodesItem">
+        <rich-text nodes="{{nodesItem}}"></rich-text>
+        <!-- start文章中插入的音视频 -->
+        <block wx:if="{{nodesIndex < nodesList.length-1}}">
+          <block wx:if="{{videoList[nodesIndex].vidType == 'mp4'}}">
+            <view class="videoCon placeholderPic-gray" bindtap="playVideo" data-vidobj="{{videoList[nodesIndex]}}">
+              <image src="{{videoList[nodesIndex].imageUrl || '../../image/137.png'}}"></image>
+              <view class="playSign{{videoList[nodesIndex].duration?' playSignV':''}}" style="display:{{artPartDisplay}}">
+                <image src="{{'../../image/15.png'}}"></image>
+              </view>
+              <view class="position-videoTime" wx:if="{{videoList[nodesIndex].duration}}">{{videoList[nodesIndex].duration}}</view> 
+            </view>
+          </block> 
+          <block wx:elif="{{videoList[nodesIndex].vidType == 'mp3'}}">
+            <view class="videoCon placeholderPic-gray" bindtap="playAudio" data-vidobj="{{videoList[nodesIndex]}}">
+              <image src="../../image/72.png"></image>
+              <view class="playSign playSignA" style="display:{{artPartDisplay}}">
+                <image src="{{'../../image/64.png'}}"></image>
+              </view>
+            </view>
+            <!-- <audio src="{{videoList[nodesIndex].videoUrl}}" controls poster="{{videoList[nodesIndex].imageUrl}}"></audio> -->
+          </block>
+        </block>
+        <!-- end文章中插入的音视频 -->
+      </block>
+    </view>
+    <block wx:if="{{articleObj.editor}}">
+      <view class="articleEditor">
+        <view>{{editorName}}{{articleObj.editor}}</view>
+      </view>
+    </block>
+  </view>
+  <!-- end正文阅读-->
+  <!-- start相关阅读-->
+  <block wx:if="{{relList && relList.length != 0}}">  
+    <view class="articleRelat row-top">
+      <view class="relat-dis theme-border-left-color-4">相关阅读</view>
+      <!-- start相关阅读列表-->
+      <view class="relatList">
+        <block wx:for="{{relList}}" wx:key="unique" wx:for-index="relIndex" wx:for-item="relItem">
+          <!-- start视频类型-->
+           <block wx:if="{{relItem.articleType==2}}">
+            <!-- start视频类型且有图片-->
+            <block wx:if="{{ relItem.picS || relItem.picM || relItem.picB}}">
+              <view class="mainContBox{{relIndex==relList.length-1 ? ' row2' : ' row1'}}" bindtap="relDetail" data-fileid="{{relItem.relId}}" data-type="{{relItem.articleType}}">
+                <view class="col-img col-img-1">
+                  <view class="cont-img">
+                    <view class="con-pics placeholderPic-gray">
+                      <image src="{{relItem.picS || relItem.picM || relItem.picB || '../../image/138.png'}}"
+                        data-title="{{relItem.title}}">
+                      </image>
+                    </view>
+                    <view class="positionVideo">
+                      <image src="{{'../../image/15.png'}}"></image>
+                    </view>
+                    <view class="positionVideoTime" wx:if="{{relItem.vTime}}">{{relItem.vTime}}</view>
+                  </view>
+                </view>
+                <view class="col-text-1">
+                  <view class="home-text">
+                     <view class="articleTitle-related text-overflow2">{{relItem._title}}</view> 
+                    <!-- <rich-text class="articleTitle-related text-overflow2" nodes="{{relItem.title}}"></rich-text> -->
+                    <!-- <view>{{relItem.attAbstract}}</view> -->
+                    <ul class="home-des">
+                      <li class="atrticle-publishtime">{{relItem.publishtime}}</li>
+                      <li class="atrticle-source">{{relItem.source}}</li>
+                      <block wx:if="{{relItem.mark}}">
+                        <li class="atrticle-marked">
+                          <view class="theme-color theme-border-all-radius-color">{{relItem.mark}}</view> 
+                        </li>
+                      </block>
+                    </ul>
+                  </view>
+                </view>
+              </view>
+            </block>
+            <!-- end视频类型且有图片-->
+            <!-- start视频类型没有图片-->
+            <block wx:if="{{!relItem.picS && !relItem.picM && !relItem.picB}}">
+              <view class="mainContBox {{relIndex==relList.length-1 ? ' row2' : ' row1'}}" bindtap="relDetail" data-type="{{relItem.articleType}}" data-fileid="{{relItem.relId}}">
+                <view class="home-text noImg">
+                  <view>
+                     <view class="articleTitle-related .text-overflow2">{{relItem._title}}</view> 
+                    <!-- <rich-text class="articleTitle-related text-overflow2" nodes="{{relItem.title}}"></rich-text> -->
+                    <!-- <view class="articleAbstract">{{relItem.attAbstract}}</view> -->
+                  </view>
+                  <ul class="home-des">
+                    <li class="atrticle-publishtime">{{relItem.publishtime}}</li>
+                    <li class="atrticle-source">{{relItem.source}}</li>
+                    <block wx:if="{{aitem.mark}}"> 
+                      <li class="atrticle-marked-noImg">
+                        <view class="theme-color theme-border-all-radius-color">{{aitem.mark}}</view> 
+                      </li>
+                    </block> 
+                  </ul>
+                </view>
+              </view>
+            </block>
+            <!-- end视频类型没有图片-->
+          </block> 
+          <!-- end视频类型-->
+          <!-- start文章类型-->
+          <block wx:else>
+            <!-- start文章类型且有图片-->
+            <block wx:if="{{ relItem.picS || relItem.picM || relItem.picB}}">
+              <view class="mainContBox{{relIndex==relList.length-1 ? ' row2' : ' row1'}}" bindtap="relDetail" data-fileid="{{relItem.articleType==3?relItem.relUrl:relItem.relId}}" data-type="{{relItem.articleType}}">
+                <view class="col-img col-img-1">
+                  <view class="cont-img">
+                    <view class="con-pics placeholderPic-gray">
+                      <image src="{{relItem.picS || relItem.picM || relItem.picB || '../../image/138.png'}}">
+                      </image>
+                    </view>
+                  </view>
+                </view>
+                <view class="col-text-1">
+                  <view class="home-text">
+                    <view>
+                       <view class="articleTitle-related .text-overflow2">{{relItem._title}}</view> 
+                    <!-- <rich-text class="articleTitle-related text-overflow2" nodes="{{relItem.title}}"></rich-text> -->
+                      <!-- <view>{{relItem.attAbstract}}</view> -->
+                    </view>
+                    <ul class="home-des">
+                      <li class="atrticle-publishtime">{{relItem.publishtime}}</li>
+                      <li class="atrticle-source">{{relItem.source}}</li>
+                    </ul>
+                  </view>
+                </view>
+              </view>
+            </block>
+            <!-- end文章类型且有图片-->
+            <!-- start文章类型但没有图片-->
+            <block wx:if="{{!relItem.picS && !relItem.picM && !relItem.picB}}">
+              <view class="mainContBox {{relIndex==relList.length-1 ? ' row2' : ' row1'}}" bindtap="relDetail" data-type="{{relItem.articleType}}" data-fileid="{{relItem.articleType==3?relItem.relUrl:relItem.relId}}">
+                <view class="home-text noImg">
+                  <view>
+                     <view class="articleTitle-related text-overflow2">{{relItem._title}}</view> 
+                    <!-- <rich-text class="articleTitle-related text-overflow2" nodes="{{relItem.title}}"></rich-text> -->
+                    <!-- <view class="articleAbstract">{{relItem.attAbstract}}</view> -->
+                  </view>
+                  <ul class="home-des">
+                    <li class="atrticle-publishtime">{{relItem.publishtime}}</li>
+                    <li class="atrticle-source">{{relItem.source}}</li>
+                  </ul>
+                </view>
+              </view>
+            </block>
+            <!-- end文章类型但没有图片-->
+          </block>
+          <!-- end文章类型-->
+        </block>
+      </view>
+      <!-- end相关阅读列表-->
+    </view>
+  </block>  
+  <!-- end相关阅读-->
+  <!-- start热门评论-->
+  <block wx:if="{{hotDisList && hotDisList.length != 0}}">  
+    <view class="articleHotDis row-top">
+      <view class="relat-dis theme-border-left-color-4">热门评论</view>
+      <!-- start热门评论列表-->
+      <view class="relatList">
+        <block wx:for="{{hotDisList}}" wx:key="unique" wx:for-index="disHotIndex" wx:for-item="disHotItem">
+          <!-- start评论列表-->
+          <view class="comment{{disHotIndex==hotDisList.length-1 ? ' row2' : ' row1'}}">
+            <view class="comMan" data-userid="{{disHotItem.userID}}">
+              <view class="userIcon userPhoto placeholderPic-gray">
+                <image src="{{disHotItem.userIcon || '../../image/89.png'}}"></image>  
+              </view>
+            </view>
+            <view class="comCon">
+              <view class="userName">{{disHotItem.userName}}</view>
+              <view class="comText">{{disHotItem.content}}</view>
+              <view class="comMarked">{{disHotItem.created}}</view>
+            </view>
+          </view>
+          <!-- end评论列表-->
+        </block>
+      </view>
+      <!-- end热门评论列表-->
+    </view>
+  </block> 
+  </scroll-view>
+  <!-- end热门评论-->
+  <!-- start置底播放的音频 -->
+  <view class="audioPlayCon" style="display:{{isAudio?'block':'none'}}">
+    <view class="audioPlayCon-item">
+      <view class="audioTitle text-overflow1">{{audTitle}}</view>
+      <view class="audioDuration">{{!audioDuration?'0:00':audioDuration}}</view>
+      <block wx:if="{{isPlay}}"><!-- 正在播放的时候显示暂停按钮 -->
+         <view class="audioBt pauseBt" bindtap="pauseBt"><image src="../../image/154.png"></image></view> 
+      </block>
+      <block wx:else><!-- 暂停的时候显示播放按钮 -->
+         <view class="audioBt playBt" bindtap="playBt"><image src="../../image/155.png"></image></view> 
+      </block>
+      <view class="audioBt closeBt" bindtap="closeBt"><image src="../../image/21.png"></image></view> 
+    </view>
+  </view>
+  <!-- end置底播放的音频 -->
+</view>

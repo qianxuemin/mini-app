@@ -1,0 +1,102 @@
+<view>
+    <view class="section tc">
+      <view class="videoImg" bindtap="playVideo" style="display:{{videoImgDisplay}}">
+        <view class="con-videos placeholderPic-gray">
+          <image src="{{videoObj.videos[0].videoarray[0].imageUrl || '../../image/137.png'}}"
+              data-title="{{aitem.title}}">
+          </image>
+        </view>
+        <view class="position-video">
+          <image src="{{'../../image/15.png'}}" bindtap="playVideo"></image>
+        </view>
+        <view class="position-videoTime" wx:if="{{duration}}">{{duration}}</view> 
+      </view>
+      <view class="video-play" style="display:{{videoPlayDisplay}}">
+        <video src="{{videoUrl}}" autoplay poster="{{video.videos[0].videoarray[0].imageUrl || '../../image/137.png'}}" controls></video>
+      </view>
+    </view>
+</view>
+<view class="detaVideoTitText">
+  <block wx:if="{{videoObj.titleStyle}}">
+    <rich-text class="detaVideoTitText1" nodes="{{videoObj.title}}"></rich-text>
+  </block>
+  <block wx:elif="{{!videoObj.titleStyle}}">
+    <view class="detaVideoTitText1">{{videoObj.title}}</view>
+  </block>
+  <view class="detaVideoTitText2">
+    <view class="detaVideoTitText2p2">{{videoObj.publishtime}}</view>
+  </view>
+</view>
+
+<view wx:if="{{relList && relList.length>0}}">
+  <view class="video_relat-titl"><view>推荐视频</view></view>
+  <view>
+    <view class="detaiVideo" wx:for="{{relList}}" wx:for-index="relIndex" wx:for-item="relItem" bindtap="detailVideo" data-fileid="{{relItem.fileId}}">
+      <!-- <block wx:if="{{relItem.articleType == 2}}"> -->
+        <view class="detailVideorow" >
+          <view class="detaiVideoCol2">
+            <view class="live_video" style="width: 100%">
+              <image  src="{{relItem.picS || '../image/142.png'}}"></image>
+            </view>
+            <view class="relatVideoImagDuration" wx:if="{{relItem.vTime}}">{{relItem.vTime}}</view>
+          </view>
+          <view class="detaiVideoCol1">
+            <!-- <view>{{relItem.title}}</view> -->
+            <rich-text nodes="{{relItem.title}}"></rich-text>
+            <view class="detaiVideo_text">
+              <view>{{relItem.publishtime}}</view>
+              <view class="detaiVideo_text2">{{relItem.source}}</view>
+            </view>
+            </view>
+          </view>
+      <!-- </block> -->
+    </view>
+  </view>
+</view>
+
+<view wx:if="{{hotDisList && hotDisList.length>0}}">
+  <view class="video_relat-titl">
+    <view>热门评论</view>
+  </view>
+  <view class="comm_hot" wx:for="{{hotDisList}}" wx:for-item="comItem" wx:for-index="comIndex">
+    <view class="comm_hot_phto">
+        <image wx:if="{{comItem.userID>0}}" src="{{comItem.userIcon || '../../image/89.png'}}"></image>
+        <image wx:if="{{comItem.userID==0}}" src="{{'../../image/89.png'}}"></image>
+        <image wx:if="{{comItem.userID<0}}" src="{{'../../image/89.png'}}"></image>
+    </view>
+    <view  class="comm_hot_con">
+        <view class="comm_hot_tit">
+            <view class="comm_hot_user">
+                <view wx:if="{{comItem.userID>=0}}">{{comItem.userName}}</view>
+                <view wx:if="{{comItem.userID<0}}">官方默认用户名</view>
+            </view>
+        </view>
+        <view class="comm_hot_content">{{comItem.content}}</view>
+        <view class="comm_hot_image" wx:if="{{comItem.attachments[0].url}}"><image src="{{comItem.attachments[0].url}}" mode="widthFix"></image></view>
+        <view class="comm_hot_time">{{comItem.created}}</view>
+    </view>
+  </view>
+</view>
+<!-- <view wx:if="{{newCommList && newCommList.length>0}}">
+    <view class="video_relat-titl"><view>最新评论</view></view>
+    <view class="comm_hot" wx:for="{{newCommList}}" wx:for-item="comItem" wx:for-index="comIndex">
+        <view class="comm_hot_phto">
+            <image wx:if="{{comItem.userID>0}}" src="{{'../../image/89.png'}}"></image>
+            <image wx:if="{{comItem.userID==0}}" src="{{'../../image/89.png'}}"></image>
+            <image wx:if="{{comItem.userID<0}}" src="{{'../../image/89.png'}}"></image>
+        </view>
+        <view  class="comm_hot_con">
+            <view class="comm_hot_tit">
+                <view class="comm_hot_user">
+                    <view wx:if="{{comItem.userID>=0}}">{{comItem.userName}}</view>
+                    <view wx:if="{{comItem.userID<0}}">官方默认用户名</view>
+                </view>
+            </view>
+            <view class="comm_hot_content">{{comItem.content}}</view>
+            <view class="comm_hot_image" wx:if="{{comItem.attachments[0].url}}"><image src="{{comItem.attachments[0].url}}" mode="widthFix"></image></view>
+            <view class="comm_hot_time">{{comItem.created}}</view>
+        </view>
+    </view>
+    <view class="newCommMore" wx:if="{{comHasMore}}" bindtap="loadMoreNewComm">查看更多</view>
+</view> -->
+<!--</scroll-view>-->

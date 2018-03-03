@@ -1,0 +1,561 @@
+<!--pages/news/news.wxml-->
+<!-- start导航 -->
+<view class="navigation">
+  <scroll-view class="labelScroll" id="labelScroll" scroll-left="{{scrollLeft}}" scroll-x="true" scroll-with-animation>
+      <view class="labels" id="navigation">
+        <block wx:for="{{columns}}" wx:key="unique">
+          <!-- <block wx:if="{{item.columnStyle == 101 || item.columnStyle == 203 || item.columnStyle == 205}}"> -->
+            <view class="label{{index == itemCurrent ? ' active theme-color theme-border-color' : ''}}" id="label{{index}}" columnId="{{item.columnId}}"
+              bindtap="clickLabel" data-columnId="{{item.columnId}}" data-columnStyle="{{item.columnStyle}}">{{item.columnName}}</view>
+            <block wx:if="{{index==columns.length-1}}">
+            </block>
+          <!-- </block> -->
+        </block>
+      </view>
+      <view class="zw"></view>
+  </scroll-view>
+</view>
+<!-- end导航 -->
+<!--默认隐藏-->
+<loading hidden="{{hiddenLoading}}">正在加载</loading>
+<view class="refresh">
+  <image class="refreshImg" src="../../image/16.png" catchtap="page_refresh"></image>
+</view>
+<!-- start按导航栏生成对应的页面，以轮播图形式显示 -->
+<swiper interval="5000" current="{{itemCurrent}}" bindchange="tabChange" class="{{isAudio ? 'tab1' : 'tab'}}">
+  <block wx:for="{{columns}}" wx:key="unique" wx:for-index="columnsIndex" wx:for-item="column">
+    <swiper-item id="{{columnsIndex}}" data-columnId="{{column.columnId}}">
+      <!-- start视频栏目下置顶的视频播放器 -->
+      <block wx:if="{{column.columnStyle == 203}}">
+        <view class="videoPlayBox" id="videoPlayBox" style="display:{{videoPlayBoxDisplay}};">
+          <view class="videoPlayer" id="videoPlayer">
+             <video id="myVideo" autoplay src="{{videoUrl}}" data-ref="{{videoObj.ref}}" poster="{{videoObj.imageUrl || '../../image/137.png'}}"></video> 
+          </view>
+          <view class="viewPlayer-marked" bindtap="detailVideo" data-fileid="{{videoObj.fileId}}" data-duration="{{videoObj.duration}}">
+            <!-- <ul class="video-des">
+              <li class="atrticle-publishtime videoPublishtime">{{videoObj.publishtime}}</li>
+              <li class="atrticle-source videoSource">{{videoObj.source}}</li>
+            </ul> -->
+            <view class="videoTitle text-overflow1">{{videoObj._title}}</view>
+            <!-- 评论按钮 -->
+            <view class="discussView">
+              <view class="img-discuss imgBt">
+                <image class="video-img " src="../../image/50.png"></image>
+                <block wx:if="{{videoObj.countDiscuss && videoObj.countDiscuss!=0}}">
+                  <view class="countDiscuss">{{videoObj.countDiscuss}}</view>
+                </block>
+              </view>
+              <view class="img-close imgBt" catchtap="closeVideoPlayer" data-videoid="video_{{videoID}}">
+                <image class="video-img " src="../../image/20.png"></image> 
+                <view class="countDiscuss">关闭</view>
+              </view>
+            </view>
+          </view>
+        </view> 
+      </block>
+      <!-- end视频栏目下置顶的视频播放器 -->
+      <!-- start栏目下的文章列表 -->
+      <scroll-view class="bodya" scroll-y="true" scroll-top="{{scrollTop}}" bindscrolltolower="loadMoreNewArticles" enable-back-to-top scroll-into-view="{{scrollIntoView}}">
+        <view class="main-news">
+          <!-- start普通新闻栏目 -->
+           <block wx:if="{{column.columnStyle == 101 ||column.columnStyle == 201 || column.columnStyle == 205}}"> 
+              <!-- start轮播图 -->
+              <block wx:if="{{column.topCount > 0}}">
+                <view class="swiper-container">
+                  <swiper autoplay="{{autoplay}}"  circular="{{circular}}" interval="5000" duration="500"  class="swiper">
+                    <block wx:for="{{cacheObj['swi_' + column.columnId]}}" wx:key="unique" wx:for-index="aindex" wx:for-item="aitem">
+                      <swiper-item bindtap="swiperClick" data-articleType="{{aitem.articleType}}" data-fileId="{{aitem.fileId}}" data-duration="{{aitem.duration}}">
+                        <!-- start轮播图文字说明title -->
+                        <view class="swiperTitle">
+                          <view class="atitle">{{aitem._title}}</view>
+                          <view class="swiperCount">
+                            <view class="swiperIndex theme-color">{{aindex+1}}</view>
+                            /{{cacheObj['swi_' + column.columnId].length}}
+                          </view>
+                        </view>
+                        <!-- end轮播图文字说明title -->
+                        <!-- start轮播图图片 如果isBigPic == 0 则small->middle->big 如果isBigPic != 0 则big->middle->small -->
+                        <view class="picSwiper placeholderPic-gray">
+                          <block wx:if="{{ aitem.isBigPic == 0}}">
+                            <block wx:if="{{ aitem.picSmall}}">
+                              <image src="{{aitem.picSmall}}" mode="aspectFill" class="img" data-title="{{aitem.title}}"></image>
+                            </block>
+                            <block wx:elif="{{ aitem.picMiddle}}">
+                              <image src="{{aitem.picMiddle}}" mode="aspectFill" class="img" data-title="{{aitem.title}}"></image>
+                            </block>
+                            <block wx:elif="{{ aitem.picBig}}">
+                              <image src="{{aitem.picBig}}" mode="aspectFill" class="img" data-title="{{aitem.title}}"></image>
+                            </block>
+                          </block>
+                          <block wx:else>
+                            <block wx:if="{{ aitem.picBig}}">
+                              <image src="{{aitem.picBig}}" mode="aspectFill" class="img" data-title="{{aitem.title}}"></image>
+                            </block>
+                            <block wx:elif="{{ aitem.picMiddle}}">
+                              <image src="{{aitem.picMiddle}}" mode="aspectFill" class="img" data-title="{{aitem.title}}"></image>
+                            </block>
+                            <block wx:elif="{{ aitem.picSmall}}">
+                              <image src="{{aitem.picSmall}}" mode="aspectFill" class="img" data-title="{{aitem.title}}"></image>
+                            </block>
+                          </block>
+                        </view>
+                        <!-- end轮播图图片 -->
+                      </swiper-item>
+                  </block>
+                </swiper>
+              </view>
+            </block>
+            <!-- end轮播图 -->
+            <!-- start文章列表 -->
+            <block wx:for="{{cacheObj[column.columnId]}}" wx:key="unique" wx:for-index="aindex" wx:for-item="aitem">
+              <!-- start普通文章类型-->
+              <block wx:if="{{ aitem.articleType == 0}}">
+                <!-- start文章类型且有图片-->
+                <block wx:if="{{ aitem.picSmall || aitem.picMiddle || aitem.picBig}}">
+                  <!-- start小图稿 -->
+                  <block wx:if="{{aitem.bigPic == 0}}">
+                    <view class="mainContBox row" bindtap="detail" data-fileid="{{aitem.fileId}}">
+                      <view class="col-img col-img-1">
+                        <view class="cont-img">
+                          <view class="con-pics placeholderPic-gray">
+                            <image src="{{aitem.picSmall || aitem.picMiddle || aitem.picBig || '../../image/138.png'}}"
+                              data-title="{{aitem.title}}" mode="aspectFill">
+                            </image>
+                          </view>
+                        </view>
+                      </view>
+                      <block wx:if="{{aitem._videoUrl && aitem._videoUrl == 'mp3'}}"> 
+                        <view class="artSign">
+                          <image class="artSignImg" src="../../image/77-1.png"></image>
+                        </view>
+                      </block> 
+                      <block wx:elif="{{aitem._videoUrl && aitem._videoUrl == 'mp4'}}"> 
+                        <view class="artSign">
+                          <image class="artSignImg" src="../../image/77.png"></image>
+                        </view>
+                      </block>
+                      <view class="col-text-1">
+                        <view class="home-text">
+                          <view class="articleTit">
+                             <view class="articleTitle articleTitle2">{{aitem._title}}</view> 
+                            <!-- <rich-text class="articleTitle articleTitle2" nodes="{{aitem.title}}"></rich-text> -->
+                            <!-- <view>{{aitem.attAbstract}}</view> -->
+                          </view>
+                          <ul class="home-des">
+                            <li class="atrticle-publishtime">{{aitem.publishtime}}</li>
+                            <li class="atrticle-source">{{aitem.source}}</li>
+                            <block wx:if="{{aitem.mark}}">
+                              <li class="atrticle-marked">
+                                <view class="theme-color theme-border-all-radius-color">{{aitem.mark}}</view> 
+                              </li>
+                            </block>
+                          </ul>
+                        </view>
+                      </view>
+                    </view>
+                  </block>
+                  <!-- end小图稿 -->
+                  <!-- start大图稿 -->
+                  <block wx:else>
+                    <view class="mainContBox bigPicBox row" bindtap="detail" data-fileid="{{aitem.fileId}}">
+                      <view class="col-text-big">
+                        <view class="home-text">
+                          <view class="articleTit">
+                             <view class="articleTitle articleTitle1">{{aitem._title}}</view> 
+                            <!-- <rich-text class="articleTitle articleTitle1" nodes="{{aitem.title}}"></rich-text> -->
+                          </view>
+                        </view>
+                      </view>
+                      <view class="cont-img-big">
+                        <view class="con-pics placeholderPic-gray">
+                          <image src="{{aitem.picSmall || aitem.picMiddle || aitem.picBig || '../../image/140.png'}}"
+                          data-title="{{aitem.title}}" mode="aspectFill">
+                          </image>
+                        </view>
+                      </view>
+                      <block wx:if="{{aitem._videoUrl && aitem._videoUrl == 'mp3'}}"> 
+                        <view class="artSign-big">
+                          <image class="artSignImg" src="../../image/77-1.png"></image>
+                        </view>
+                      </block> 
+                      <block wx:elif="{{aitem._videoUrl && aitem._videoUrl == 'mp4'}}"> 
+                        <view class="artSign-big">
+                          <image class="artSignImg" src="../../image/77.png"></image>
+                        </view>
+                      </block>  
+                      <view class="marked">
+                        <ul class="home-des">
+                            <li class="atrticle-publishtime">{{aitem.publishtime}}</li>
+                            <li class="atrticle-source">{{aitem.source}}</li>
+                            <block wx:if="{{aitem.mark}}">
+                              <li class="atrticle-marked">
+                                <view class="theme-color theme-border-all-radius-color">{{aitem.mark}}</view> 
+                              </li>
+                            </block>
+                        </ul>
+                      </view>
+                    </view>
+                  </block>
+                  <!-- end大图稿 -->
+                </block>
+                <!-- end文章类型且有图片-->
+                <!-- start文章类型但没有图片-->
+                <block wx:if="{{!aitem.picSmall&&!aitem.picMiddle&&!aitem.picBig}}">
+                  <view class="mainContBox row" bindtap="detail" data-fileid="{{aitem.fileId}}">
+                    <view class="home-text">
+                      <view class="articleTit-no">
+                           <view class="articleTitle articleTitle2">{{aitem._title}}</view> 
+                          <!-- <rich-text class="articleTitle articleTitle2" nodes="{{aitem.title}}"></rich-text> -->
+                          <!-- <view class="articleAbstract">{{aitem.attAbstract}}</view> -->
+                      </view>
+                      <ul class="home-des">
+                          <li class="atrticle-publishtime">{{aitem.publishtime}}</li>
+                          <li class="atrticle-source">{{aitem.source}}</li>
+                          <block wx:if="{{aitem.mark}}"> 
+                            <li class="atrticle-marked-noImg">
+                              <view class="theme-color theme-border-all-radius-color">{{aitem.mark}}</view> 
+                            </li>
+                          </block> 
+                      </ul>
+                    </view>
+                  </view>
+                </block>
+                <!-- end文章类型但没有图片-->
+              </block>
+              <!-- end普通文章类型-->
+              <!-- start组图类型-->
+              <block wx:elif="{{aitem.articleType == 1}}">
+                <view class="mainContBox row mulPicBox" bindtap="detailPicture" data-fileid="{{aitem.fileId}}">
+                  <view class="col-text-2">
+                    <view class="home-text">
+                        <view class="articleTit">
+                           <view class="articleTitle articleTitle1">{{aitem._title}}</view> 
+                          <!-- <rich-text class="articleTitle articleTitle1" nodes="{{aitem.title}}"></rich-text> -->
+                        </view>
+                    </view>
+                  </view>
+                  <view class="col-img col-img-2">
+                    <view class="cont-img">
+                      <block wx:if="{{aitem.pic0}}">
+                        <view class="con-pics con-pics0 placeholderPic-gray">
+                            <image src="{{aitem.pic0 || '../../image/139.png'}}" mode="aspectFill">
+                            </image>
+                        </view>
+                      </block>
+                      <block wx:if="{{aitem.pic1}}">
+                        <view class="con-pics con-pics1 placeholderPic-gray">
+                          <!-- <image src="{{aitem.pic1 || '../../image/139.png'}}"> -->
+                          <image src="{{aitem.pic1 || '../../image/139.png'}}" mode="aspectFill">
+                          </image>
+                        </view>
+                      </block>
+                      <block wx:if="{{aitem.pic2}}">
+                        <view class="con-pics con-pics2 placeholderPic-gray">
+                            <image src="{{aitem.pic2 || '../../image/139.png'}}" mode="aspectFill">
+                            </image>
+                        </view>
+                      </block>
+                      <view class="positionTime">
+                        <image src="{{'../../image/62.png'}}" ></image>
+                        {{aitem.picCount}}
+                      </view>
+                    </view>
+                  </view>
+                  <view class="marked">
+                    <ul class="home-des">
+                        <li class="atrticle-publishtime">{{aitem.publishtime}}</li>
+                        <li class="atrticle-source">{{aitem.source}}</li>
+                        <block wx:if="{{aitem.mark}}">
+                          <li class="atrticle-marked">
+                            <view class="theme-color theme-border-all-radius-color">{{aitem.mark}}</view> 
+                          </li>
+                        </block>
+                    </ul>
+                  </view>
+                </view>
+              </block>
+              <!-- end组图类型-->
+              <!-- start视频类型-->
+              <block wx:elif="{{aitem.articleType == 2}}">
+                <!-- start视频类型且有图片-->
+                <block wx:if="{{ aitem.picSmall || aitem.picMiddle || aitem.picBig}}">
+                  <!-- start视频的小图稿件 -->
+                  <block wx:if="{{aitem.bigPic == 0}}">
+                    <view class="mainContBox row videoBox" bindtap="detailVideo" data-fileid="{{aitem.fileId}}" data-duration="{{aitem.duration}}">
+                      <view class="col-img col-img-1">
+                        <view class="cont-img">
+                          <view class="con-pics placeholderPic-gray">
+                            <image src="{{aitem.picSmall || aitem.picMiddle || aitem.picBig || '../../image/138.png'}}"
+                              data-title="{{aitem.title}}" mode="aspectFill">
+                            </image>
+                          </view>
+                          <view class="positionVideo">
+                            <image src="{{'../../image/15.png'}}"></image>
+                          </view>
+                          <view class="positionVideoTime">{{aitem.duration}}</view>
+                        </view>
+                      </view>
+                      <view class="col-text-1">
+                        <view class="home-text">
+                          <view class="articleTit">
+                             <view class="articleTitle articleTitle2">{{aitem._title}}</view> 
+                            <!-- <rich-text class="articleTitle articleTitle2" nodes="{{aitem.title}}"></rich-text> -->
+                            <!-- <view>{{aitem.attAbstract}}</view> -->
+                          </view>
+                          <ul class="home-des">
+                            <li class="atrticle-publishtime">{{aitem.publishtime}}</li>
+                            <li class="atrticle-source">{{aitem.source}}</li>
+                            <block wx:if="{{aitem.mark}}">
+                              <li class="atrticle-marked">
+                                <view class="theme-color theme-border-all-radius-color">{{aitem.mark}}</view> 
+                              </li>
+                            </block>
+                          </ul>
+                        </view>
+                      </view>
+                    </view>
+                  </block>
+                  <!-- end视频的小图稿件 -->
+                  <!-- start视频的大图稿件 --> 
+                  <block wx:elif="{{aitem.bigPic == 1}}">
+                    <view class="mainContBox row videoBox bigPicBox" bindtap="detailVideo" data-fileid="{{aitem.fileId}}" data-duration="{{aitem.duration}}">
+                      <view class="col-text-big">
+                        <view class="home-text">
+                          <view class="articleTit">
+                             <view class="articleTitle articleTitle1">{{aitem._title}}</view> 
+                            <!-- <rich-text class="articleTitle articleTitle1" nodes="{{aitem.title}}"></rich-text> -->
+                          </view>
+                        </view>
+                      </view>
+                      <view class="cont-img-big">
+                        <view class="con-pics placeholderPic-gray">
+                          <image src="{{aitem.picSmall || aitem.picMiddle || aitem.picBig || '../../image/140.png'}}"
+                          data-title="{{aitem.title}}" mode="aspectFill">
+                          </image>
+                        </view>
+                        <view class="positionVideo positionVideo-big">
+                          <image src="{{'../../image/15.png'}}"></image>
+                        </view>
+                        <view class="positionVideoTime positionVideoTime-big">{{aitem.duration}}</view>
+                      </view>
+                      <view class="marked">
+                        <ul class="home-des">
+                          <li class="atrticle-publishtime">{{aitem.publishtime}}</li>
+                          <li class="atrticle-source">{{aitem.source}}</li>
+                          <block wx:if="{{aitem.mark}}">
+                            <li class="atrticle-marked">
+                              <view class="theme-color theme-border-all-radius-color">{{aitem.mark}}</view> 
+                            </li>
+                          </block>
+                        </ul>
+                      </view>
+                    </view>
+                  </block>
+                  <!-- end视频的大图稿件 -->
+                </block>
+                <!-- end视频类型且有图片-->
+                <!-- start视频类型但没有图片-->
+                <block wx:if="{{!aitem.picSmall&&!aitem.picMiddle&&!aitem.picBig}}">
+                  <view class="mainContBox row" bindtap="detailVideo" data-fileid="{{aitem.fileId}}" data-duration="{{aitem.duration}}">
+                    <view class="home-text">
+                      <view class="articleTit-no">
+                           <view class="articleTitle articleTitle2">{{aitem._title}}</view> 
+                          <!-- <rich-text class="articleTitle articleTitle2" nodes="{{aitem.title}}"></rich-text> -->
+                          <!-- <view class="articleAbstract">{{aitem.attAbstract}}</view> -->
+                      </view>
+                      <ul class="home-des">
+                          <li class="atrticle-publishtime">{{aitem.publishtime}}</li>
+                          <li class="atrticle-source">{{aitem.source}}</li>
+                          <block wx:if="{{aitem.mark}}"> 
+                            <li class="atrticle-marked-noImg">
+                              <view class="theme-color theme-border-all-radius-color">{{aitem.mark}}</view> 
+                            </li>
+                          </block> 
+                      </ul>
+                    </view>
+                  </view>
+                </block>
+                <!-- end视频类型但没有图片-->
+              </block>
+              <!-- end视频类型-->
+              <!-- start专题类型-->
+              <block wx:elif="{{aitem.articleType == 3}}">
+                <!-- start专题类型且有图片-->
+                <block wx:if="{{ aitem.picSmall || aitem.picMiddle || aitem.picBig}}">
+                  <!-- start专题类型的小图稿件 -->
+                  <block wx:if="{{aitem.bigPic == 0}}">
+                    <view class="mainContBox row specialBox" bindtap="detailSpecial" data-fileid="{{aitem.linkID}}">
+                      <view class="col-img col-img-1">
+                        <view class="cont-img">
+                          <view class="con-pics placeholderPic-gray">
+                            <image src="{{aitem.picSmall || aitem.picMiddle || aitem.picBig || '../../image/138.png'}}"
+                              data-title="{{aitem.title}}" mode="aspectFill">
+                            </image>
+                          </view>
+                        </view>
+                      </view>
+                      <view class="col-text-1">
+                        <view class="home-text">
+                          <view class="articleTit">
+                             <view class="articleTitle articleTitle2">{{aitem._title}}</view> 
+                            <!-- <rich-text class="articleTitle articleTitle2" nodes="{{aitem.title}}"></rich-text> -->
+                            <!-- <view>{{aitem.attAbstract}}</view> -->
+                          </view>
+                          <ul class="home-des">
+                            <li class="atrticle-publishtime">{{aitem.publishtime}}</li>
+                          <li class="atrticle-source">{{aitem.source}}</li>
+                            <block wx:if="{{aitem.mark}}">
+                              <li class="atrticle-marked-top"> 
+                                <view class="theme-color theme-border-all-radius-color">{{aitem.mark}}</view> 
+                                <view class="theme-color theme-border-all-radius-color" wx:if="{{aitem.mark != '专题'}}">专题</view>
+                              </li>
+                            </block>
+                            <block wx:else>
+                              <li class="atrticle-marked"> 
+                                <view class="theme-color theme-border-all-radius-color">专题</view>
+                              </li>
+                            </block>
+                          </ul>
+                        </view>
+                      </view>
+                    </view>
+                  </block>
+                  <!-- end专题类型的小图稿件 -->
+                  <!-- start专题类型的大图稿件 --> 
+                  <block wx:elif="{{aitem.bigPic == 1}}">
+                    <view class="mainContBox row specialBox bigPicBox" bindtap="detailSpecial" data-fileid="{{aitem.fileId}}">
+                      <view class="col-text-big">
+                        <view class="home-text">
+                          <view class="articleTit">
+                             <view class="articleTitle articleTitle1">{{aitem._title}}</view> 
+                            <!-- <rich-text class="articleTitle articleTitle1" nodes="{{aitem.title}}"></rich-text> -->
+                          </view>
+                        </view>
+                      </view>
+                      <view class="cont-img-big">
+                        <view class="con-pics placeholderPic-gray">
+                          <image src="{{aitem.picSmall||aitem.picMiddle||aitem.picBig ||'../../image/140.png'}}"
+                          data-title="{{aitem.title}}" mode="aspectFill">
+                          </image>
+                        </view>
+                      </view>
+                      <view class="marked">
+                        <ul class="home-des">
+                          <li class="atrticle-publishtime">{{aitem.publishtime}}</li>
+                          <li class="atrticle-source">{{aitem.source}}</li>
+                          <block wx:if="{{aitem.mark}}">
+                            <li class="atrticle-marked-top"> 
+                              <view class="theme-color theme-border-all-radius-color">{{aitem.mark}}</view> 
+                              <view class="theme-color theme-border-all-radius-color">专题</view>
+                            </li>
+                          </block>
+                          <block wx:else>
+                            <li class="atrticle-marked"> 
+                              <view class="theme-color theme-border-all-radius-color">专题</view>
+                            </li>
+                          </block>
+                        </ul>
+                      </view>
+                    </view>
+                  </block>
+                  <!-- end专题类型的大图稿件 -->
+                </block>
+                <!-- end专题类型且有图片-->
+                <!-- start专题类型但没有图片-->
+                <block wx:if="{{!aitem.picSmall&&!aitem.picMiddle&&!aitem.picBig}}">
+                  <view class="mainContBox row" bindtap="detailSpecial" data-fileid="{{aitem.fileId}}">
+                    <view class="home-text">
+                      <view class="articleTit-no">
+                           <view class="articleTitle articleTitle2">{{aitem._title}}</view> 
+                          <!-- <rich-text class="articleTitle articleTitle2" nodes="{{aitem.title}}"></rich-text> -->
+                          <!-- <view class="articleAbstract">{{aitem.attAbstract}}</view> -->
+                      </view>
+                      <ul class="home-des">
+                          <li class="atrticle-publishtime">{{aitem.publishtime}}</li>
+                          <li class="atrticle-source">{{aitem.source}}</li>
+                          <block wx:if="{{aitem.mark}}">
+                            <li class="atrticle-marked-top"> 
+                              <view class="theme-color theme-border-all-radius-color">{{aitem.mark}}</view> 
+                              <view class="theme-color theme-border-all-radius-color">专题</view>
+                            </li>
+                          </block>
+                          <block wx:else>
+                            <li class="atrticle-marked"> 
+                              <view class="theme-color theme-border-all-radius-color">专题</view>
+                            </li>
+                          </block>
+                      </ul>
+                    </view>
+                  </view>
+                </block>
+                <!-- end专题类型但没有图片-->
+              </block>
+              <!-- end专题类型-->
+            </block>
+            <!-- end文章列表 -->
+            </block> 
+          <!-- end普通新闻栏目 -->
+          <!-- start视频栏目 -->
+          <block wx:elif="{{column.columnStyle == 203}}">
+            <block wx:for="{{articleList}}" wx:key="unique" wx:for-index="aindex" wx:for-item="aitem">
+              <!-- 过滤非视频稿件 -->
+              <block wx:if="{{aitem.articleType == 2}}">
+                <view class="videoConBox" id="video_{{aindex}}" bindtap="videoDetail" data-count="{{articleList.length}}" data-video="{{aitem}}">
+                  <view class="col-text-video">
+                    <view class="video-text">
+                       <view class="articleTitle articleTitleVideo">{{aitem._title}}</view> 
+                      <!-- <rich-text class="articleTitle articleTitleVideo" nodes="{{aitem.title}}"></rich-text> -->
+                    </view>
+                  </view>
+                  <view class="cont-video">
+                    <view class="con-videos placeholderPic-gray">
+                      <image src="{{aitem.picSmall || aitem.picMiddle || aitem.picBig || '../../image/140.png'}}"
+                          data-title="{{aitem._title}}" mode="aspectFill">
+                      </image>
+                    </view>
+                    <view class="position-video">
+                      <image src="{{'../../image/15.png'}}" bindtap="palyVideo"></image>
+                    </view>
+                    <view class="position-videoTime">{{aitem.duration}}</view> 
+                  </view>
+                  <view class="markedVideo" catchtap="detailVideo" data-fileid="{{aitem.fileId}}" data-duration="{{aitem.duration}}">
+                    <ul class="video-des">
+                        <li class="atrticle-publishtime videoPublishtime">{{aitem.publishtime}}</li>
+                        <li class="atrticle-source videoSource">{{aitem.source}}</li>
+                    </ul>
+                    <!-- 评论按钮 -->
+                    <view class="discussView">
+                      <image class="video-img" src="../../image/50.png"></image>
+                        <block wx:if="{{aitem.countDiscuss && aitem.countDiscuss!= 0}}">
+                          <view class="countDiscuss">{{aitem.countDiscuss}}</view>
+                        </block>
+                      <!-- <image src="../../image/52.png"></image> -->
+                    </view>
+                  </view>
+                </view>
+              </block>
+            </block>
+          </block>
+          <!-- end视频栏目 -->
+        </view>
+      </scroll-view>
+      <!-- end栏目下的文章列表 -->
+    </swiper-item>
+  </block>
+</swiper>
+<!-- end按导航栏生成对应的页面，以轮播图形式显示 -->
+<!-- start置底播放的音频 -->
+<view class="audioPlayCon" bindtap="detail" data-fileid="{{audioId}}" style="display:{{isAudio?'block':'none'}}">
+  <view class="audioPlayCon-item">
+    <view class="audioTitle text-overflow1">{{audTitle}}</view>
+    <view class="audioDuration">{{!audioDuration?'0:00':audioDuration}}</view>
+    <block wx:if="{{isPlay}}"><!-- 正在播放的时候显示暂停按钮 -->
+        <view class="audioBt pauseBt" catchtap="pauseBt"><image src="../../image/154.png"></image></view> 
+    </block>
+    <block wx:else><!-- 暂停的时候显示播放按钮 -->
+        <view class="audioBt playBt" catchtap="playBt"><image src="../../image/155.png"></image></view> 
+    </block>
+    <view class="audioBt closeBt" catchtap="closeBt"><image src="../../image/21.png"></image></view> 
+  </view>
+</view>
+<!-- end置底播放的音频 -->

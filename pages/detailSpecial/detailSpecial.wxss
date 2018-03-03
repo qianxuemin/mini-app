@@ -1,0 +1,264 @@
+/* pages/detailSpecial/detailSpecial.wxss */
+page{
+  font-family: '微软雅黑';
+  /* background: #f6f6f6; */
+}
+/* 头图 */
+.headPic{
+  width: 750rpx;
+  height: 120rpx;
+}
+.headPic image{
+  width: 100%;
+  height: 100%;
+}
+/* 标题 描述 */
+.speTitle{
+  margin: 30rpx;
+}
+.speCasNames{
+  font-size: 36rpx;
+  padding: 0 0 10rpx 10rpx;
+}
+.speDescription{
+  color: #666666;
+  line-height: 150%;
+  padding-left: 20rpx;
+}
+/* 专题栏目 */
+.columnName{
+  background: #f6f6f6;
+  padding: 30rpx;
+  display: flex;
+  color: #666666;
+}
+.colCount{
+  display: flex;
+  margin-right: 10rpx;
+}
+
+/* 专题稿件 */
+
+.rowA{
+  font-size: 30rpx;
+  color: #333333;
+  border-width: 0 0 2rpx 0;
+  border-color: #e3e3e3;
+  border-style: solid;
+  margin: 0 30rpx;
+  padding: 28rpx 0;
+}
+/*文章列表中的大图稿件*/
+.bigPicBox{
+  display: flex;
+  flex-wrap: wrap;
+}
+.speArticles{
+  display: flex;
+  position: relative;
+}
+.mulPicBox{
+  display: flex;
+  flex-direction: column;
+}
+/*文章列表的title*/
+.articleTitle{
+  color: #333333;
+  font-size: 30rpx;
+}
+/*文章列表的title 显示一行文字*/
+.articleTitle1{
+  height: 50rpx;
+  width: 680rpx;
+}
+/*文章列表的title 显示两行文字*/
+.articleTitle2{
+  height: 80rpx;
+  font-size: 30rpx;
+}
+
+.home-text{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+/* .home-text .articleTit, .home-text .articleTitle{
+  margin-bottom: 40rpx;
+}
+.col-text-big .home-text .articleTit, .col-text-big .articleTitle{
+  margin-bottom: 30rpx;
+} */
+.home-des{
+  align-self: flex-end;
+  width: 100%;
+}
+.articleAbstract{
+  font-size: 24rpx;
+  color: #333333;
+  margin: 15rpx
+}
+.atrticle-source, .atrticle-publishtime{
+  font-size: 24rpx;
+  color: #999999;
+  margin-right: 20rpx;
+  display: inline-block;
+}
+.col-text-1{
+  width: 460rpx;
+  height: 155rpx;
+  margin-left: 30rpx;
+}
+.col-img-1 .cont-img{
+  height: 155rpx;
+  width: 230rpx;
+}
+.col-img-1 image{
+  margin: 0 0 30rpx 0;
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+  width: 100%;
+}
+.col-img-2 .cont-img{
+  display: flex;
+  flex-wrap: nowrap;
+  position: relative;
+  height: 165rpx;
+}
+.col-img-2 image{
+  height: 165rpx;
+  width: 226rpx;
+}
+.col-img-2 .con-pics{
+  margin-right: 6rpx;
+}
+.marked{
+  display: flex;
+  margin-top: 22rpx;
+  width: 100%;
+}
+.col-text-2 .home-text .articleTit{
+  margin-bottom: 30rpx;
+}
+.positionTime{
+  position: relative;
+  top: 130rpx;
+  left: -65rpx;
+  font-size: 24rpx;
+  width: 60rpx;
+  height: 30rpx;
+  line-height: 30rpx;
+  color: #FFFFFF;
+  text-align: center;
+  display: flex;
+}
+.positionTime image{
+  width: 30rpx;
+  height: 25rpx;
+  margin-right: 8rpx;
+}
+.cont-img-big .positionTime{
+  position: absolute;
+  font-size: 30rpx;
+  top: 210rpx;
+  left: 618rpx;
+}
+
+.atrticle-marked{
+  float: right;
+  display: inline-block;
+}
+.atrticle-marked-top{
+  display: flex;
+  justify-content: flex-end;
+  float: right;
+}
+.atrticle-marked-noImg{
+  display: flex;
+  justify-content: flex-end;
+  float: right;
+  display: inline-block;
+}
+.atrticle-marked view, .atrticle-marked-top view ,.atrticle-marked-noImg view{
+  font-size: 24rpx;
+  width: auto;
+  height: 30rpx;
+  line-height: 30rpx;
+  padding:0 2rpx;
+  margin-right: 2rpx;
+}
+
+.videoBox .cont-img{
+  position: relative;
+}
+.positionVideo image{
+  position: absolute;
+  height: 60rpx;
+  width: 60rpx;
+  top: 52rpx;
+  left: 95rpx;
+}
+.positionVideoTime{
+  position: absolute;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 2px;
+  top: 128rpx;
+  left: 165rpx;
+  width: 62rpx;
+  height: 25rpx;
+  line-height: 25rpx;
+  font-size: 24rpx;
+  color: #FFFFFF;
+  text-align: center;
+}
+.cont-img-big{
+  position: relative;
+  width: 690rpx;
+  height: 260rpx;
+}
+.cont-img-big image{
+  width: 690rpx;
+  height: 260rpx;
+}
+.positionVideo-big image{
+  height: 80rpx;
+  width: 80rpx;
+  top: 90rpx;
+  left: 305rpx;
+}
+.positionVideoTime-big{
+  top: 215rpx;
+  left: 608rpx;
+  width: 77rpx;
+  height: 36rpx;
+  line-height: 36rpx;
+  font-size: 24rpx;
+}
+/* 文章列表中的含视频或音频的标记 */
+.artSign{
+  width: 45rpx;
+  height: 45rpx;
+  position: absolute;
+  top: 130rpx;
+  left: 180rpx;
+}
+.artSign-big{
+  width: 65rpx;
+  height: 65rpx;
+  position: absolute;
+  top: 305rpx;
+  left: 625rpx;
+}
+.artSign-noneImg{
+  width: 60rpx;
+  height: 60rpx;
+  position: absolute;
+  top: 145rpx;
+  left: 630rpx;
+}
+.artSignImg{
+  width: 100%;
+  height: 100%;
+}
